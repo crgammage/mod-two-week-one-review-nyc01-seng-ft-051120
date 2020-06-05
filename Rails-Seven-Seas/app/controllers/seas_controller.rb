@@ -5,7 +5,6 @@ def index
 end
 
 def show
-  
   @sea = Sea.find(params[:id])
 end
 
@@ -14,9 +13,15 @@ def new
 end
 
 def create
-  @sea = Sea.create(params.require(:sea).permit(:sea))
-  redirect_to seas_path
+  @sea = Sea.create(sea_params)
+  redirect_to sea_path(@sea)
 end
+
+# post "/seas" do
+#   @sea = Sea.new(params)
+#   @sea.save
+#   redirect to "/seas/#{@sea.id}"
+# end
 
 def edit
   @sea = Sea.find(params[:id])
@@ -24,8 +29,8 @@ end
 
 def update
   @sea = Sea.find(params[:id])
-    @sea.update(params.require(:sea).permit(:sea))
-    redirect_to seas_path(@sea)
+    @sea.update(sea_params)
+    redirect_to sea_path(@sea)
 end
 
 def destroy
